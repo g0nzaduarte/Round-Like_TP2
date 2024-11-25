@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         ChangeState(new IdleState());
-        SetShotStrategy(new SingleShot()); // Use Single shot by default
+        SetShotStrategy(new SingleShot());
     }
 
 
