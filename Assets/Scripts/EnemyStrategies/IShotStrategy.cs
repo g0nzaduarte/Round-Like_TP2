@@ -6,7 +6,5 @@ public interface IShotStrategy
 {
     void Shoot(Enemy enemy);
 
-
-
 }
 

@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
 
     public float chaseRange = 5f;
     public float moveSpeed = 2f;
-    private IEnemyState currentState;
 
     public float fireRate = 1f; 
     private float nextFireTime = 0f;
@@ -18,24 +17,28 @@ public class Enemy : MonoBehaviour
     private float changeStrategyInterval = 5f;
     private float nextStrategyChangeTime = 0f;
 
+    public StateMachine<Enemy> StateMachine { get; private set; }
+
     private void Start()
     {
-        ChangeState(new IdleState());
+        StateMachine = new StateMachine<Enemy>(this);
+        StateMachine.ChangeState(new IdleState());
+
         SetShotStrategy(new SingleShot());
     }
 
-
-    private void Update() 
+    private void Update()
     {
-        currentState?.Execute(this);
+        StateMachine.Update();
 
-        
+        // Lógica para cambiar estrategia de disparo
         if (Time.time >= nextStrategyChangeTime)
         {
-            nextStrategyChangeTime = Time.time + changeStrategyInterval;
-            ChangeShotStrategy();
+            nextStrategyChangeTime = Time.time + changeStrategyInterval; // Reinicia el temporizador
+            ChangeShotStrategy(); // Cambia la estrategia
         }
     }
+
 
     private void ChangeShotStrategy()
     {
@@ -59,21 +62,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void ChangeState(IEnemyState newState)
-    {
-        currentState?.Exit(this);
-        currentState = newState;
-        currentState.Enter(this);
-    }
-
     public void MoveTowardsPlayer()
     {
         if (Player == null) return;
-
-        
         Vector2 direction = (Player.position - transform.position).normalized;
-
-        
         transform.position = Vector2.MoveTowards(transform.position, Player.position, moveSpeed * Time.deltaTime);
     }
 
@@ -87,10 +79,12 @@ public class Enemy : MonoBehaviour
             {
                 shotStrategy.Shoot(this);
             }
+            else
+            {
+                Debug.LogWarning("Shot strategy is null!");
+            }
         }
     }
-
-
 
     public IShotStrategy shotStrategy;
 

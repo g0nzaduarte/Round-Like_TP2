@@ -2,13 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChaseState : IEnemyState
+public class ChaseState : IState<Enemy>
 {
-    public void Enter(Enemy enemy) { Debug.Log("Chase state entered"); }
+    public void Enter(Enemy enemy)
+    {
+        Debug.Log("Chase state entered");
+    }
+
     public void Execute(Enemy enemy)
     {
-        enemy.MoveTowardsPlayer();
+        Debug.Log("ChaseState: Executing...");
+
+        enemy.MoveTowardsPlayer(); 
         enemy.Shoot();
     }
-    public void Exit(Enemy enemy) { Debug.Log("Exiting Chase state"); }
+
+    public void Exit(Enemy enemy)
+    {
+        Debug.Log("Exiting Chase state");
+    }
 }
+
