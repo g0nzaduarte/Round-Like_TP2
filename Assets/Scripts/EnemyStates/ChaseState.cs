@@ -6,12 +6,12 @@ public class ChaseState : IState<Enemy>
 {
     public void Enter(Enemy enemy)
     {
-        Debug.Log("Chase state entered");
+        Debug.Log("Chase state entered.");
     }
 
     public void Execute(Enemy enemy)
     {
-        Debug.Log("ChaseState: Executing...");
+        Debug.Log("ChaseState: Executing.");
 
         enemy.MoveTowardsPlayer(); 
         enemy.Shoot();
@@ -19,7 +19,7 @@ public class ChaseState : IState<Enemy>
 
     public void Exit(Enemy enemy)
     {
-        Debug.Log("Exiting Chase state");
+        Debug.Log("Exiting Chase state.");
     }
 }
 

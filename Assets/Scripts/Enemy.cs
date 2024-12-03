@@ -31,11 +31,11 @@ public class Enemy : MonoBehaviour
     {
         StateMachine.Update();
 
-        // Lógica para cambiar estrategia de disparo
+        
         if (Time.time >= nextStrategyChangeTime)
         {
-            nextStrategyChangeTime = Time.time + changeStrategyInterval; // Reinicia el temporizador
-            ChangeShotStrategy(); // Cambia la estrategia
+            nextStrategyChangeTime = Time.time + changeStrategyInterval; 
+            ChangeShotStrategy();
         }
     }
 
@@ -49,15 +49,15 @@ public class Enemy : MonoBehaviour
         {
             case 0:
                 SetShotStrategy(new SingleShot());
-                Debug.Log("Enemy changed to SingleShot");
+                Debug.Log("Enemy changed to SingleShot.");
                 break;
             case 1:
                 SetShotStrategy(new TripleShot());
-                Debug.Log("Enemy changed to TripleShot");
+                Debug.Log("Enemy changed to TripleShot.");
                 break;
             case 2:
                 SetShotStrategy(new RadialShot());
-                Debug.Log("Enemy changed to RadialShot");
+                Debug.Log("Enemy changed to RadialShot.");
                 break;
         }
     }
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Shot strategy is null!");
+                Debug.LogWarning("Shot strategy is null.");
             }
         }
     }

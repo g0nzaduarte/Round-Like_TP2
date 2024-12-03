@@ -24,13 +24,13 @@ public class SpeedCommand : ICommand
     public void Execute()
     {
         player.speed *= multiplier;
-        Debug.Log("Player speed increased!");
+        Debug.Log("Player speed increased.");
     }
 
     public void Undo()
     {
         player.speed = originalSpeed;
-        Debug.Log("Player speed reset!");
+        Debug.Log("Player speed reset.");
     }
 }
 
@@ -43,7 +43,7 @@ public class NukeCommand : ICommand
         {
             GameObject.Destroy(enemy);
         }
-        Debug.Log("All enemies destroyed!");
+        Debug.Log("All enemies destroyed.");
     }
 
     public void Undo()
