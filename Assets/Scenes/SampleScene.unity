@@ -353,7 +353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 486542270}
-  - component: {fileID: 486542269}
+  - component: {fileID: 486542271}
   m_Layer: 0
   m_Name: EnemyFactory
   m_TagString: Untagged
@@ -361,19 +361,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &486542269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 486542268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ce7de009e85004d896edfe6eb33d33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 756189556}
 --- !u!4 &486542270
 Transform:
   m_ObjectHideFlags: 0
@@ -389,6 +376,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &486542271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486542268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cdf5ce9a48cf7a4fbd5aeaf64bf9602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 756189556}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,9 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03961de2f4eca3647b4b2d6512ea6c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 756189556}
-  spawnInterval: 10
-  maxEnemies: 20
+  enemyFactoryGameObject: {fileID: 486542268}
 --- !u!1 &854654275
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,9 +954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03961de2f4eca3647b4b2d6512ea6c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 756189556}
-  spawnInterval: 10
-  maxEnemies: 10
+  enemyFactoryGameObject: {fileID: 486542268}
 --- !u!1 &1412304225
 GameObject:
   m_ObjectHideFlags: 0
@@ -7146,9 +7142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03961de2f4eca3647b4b2d6512ea6c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 756189556}
-  spawnInterval: 10
-  maxEnemies: 10
+  enemyFactoryGameObject: {fileID: 486542268}
 --- !u!1 &2113773437
 GameObject:
   m_ObjectHideFlags: 0
@@ -7430,6 +7424,10 @@ PrefabInstance:
       propertyPath: chaseRange
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3236770300992553972, guid: 3a04c16607d1ca546b12a48d9f7c409f, type: 3}
+      propertyPath: sharedData
+      value: 
+      objectReference: {fileID: 11400000, guid: a6c2691d5e27eae46ad6d83b499f278b, type: 2}
     - target: {fileID: 3236770300992553972, guid: 3a04c16607d1ca546b12a48d9f7c409f, type: 3}
       propertyPath: BulletPrefab
       value: 

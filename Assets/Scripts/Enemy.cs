@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+
+    public EnemySharedData sharedData; // Asignar este objeto en el inspector
+
     public Transform Player;
     public Transform firePoint; 
     public GameObject BulletPrefab; 
-
-    public float chaseRange = 5f;
-    public float moveSpeed = 2f;
 
     public float fireRate = 1f; 
     private float nextFireTime = 0f;
@@ -21,6 +21,9 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+
+        Debug.Log($"Enemy Speed: {sharedData.moveSpeed}, Chase Range: {sharedData.chaseRange}");
+
         StateMachine = new StateMachine<Enemy>(this);
         StateMachine.ChangeState(new IdleState());
 
@@ -65,8 +68,9 @@ public class Enemy : MonoBehaviour
     public void MoveTowardsPlayer()
     {
         if (Player == null) return;
+
         Vector2 direction = (Player.position - transform.position).normalized;
-        transform.position = Vector2.MoveTowards(transform.position, Player.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, Player.position, sharedData.moveSpeed * Time.deltaTime);
     }
 
     public void Shoot()
