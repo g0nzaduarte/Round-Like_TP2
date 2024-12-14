@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    public EnemySharedData sharedData; // Asignar este objeto en el inspector
+    public EnemySharedData sharedData;
 
     public Transform Player;
     public Transform firePoint; 
@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
 
     public StateMachine<Enemy> StateMachine { get; private set; }
 
+    private BulletPool bulletPool;
+
     private void Start()
     {
 
@@ -28,6 +30,9 @@ public class Enemy : MonoBehaviour
         StateMachine.ChangeState(new IdleState());
 
         SetShotStrategy(new SingleShot());
+
+        bulletPool = FindObjectOfType<BulletPool>();
+
     }
 
     private void Update()
@@ -78,14 +83,11 @@ public class Enemy : MonoBehaviour
         if (Time.time >= nextFireTime)
         {
             nextFireTime = Time.time + 1f / fireRate;
-
-            if (shotStrategy != null)
+            GameObject bullet = bulletPool.GetBullet();
+            if (bullet != null)
             {
-                shotStrategy.Shoot(this);
-            }
-            else
-            {
-                Debug.LogWarning("Shot strategy is null.");
+                bullet.transform.position = firePoint.position;
+                bullet.GetComponent<Bullet>().SetDirection((Player.position - transform.position).normalized);
             }
         }
     }

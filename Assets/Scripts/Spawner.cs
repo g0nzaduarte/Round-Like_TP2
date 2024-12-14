@@ -2,33 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
-    private IEnemyFactory enemyFactory;
+    public IEnemyFactory enemyFactory;
+    public float spawnInterval = 5f;
 
     [SerializeField] private GameObject enemyFactoryGameObject;
 
-    public void SpawnEnemy(Vector2 position)
+    private float spawnTimer;
+
+    private void Update()
     {
-        if (enemyFactory != null)
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer >= spawnInterval)
         {
-            enemyFactory.CreateEnemy(position);
+            SpawnEnemy();
+            spawnTimer = 0f;
         }
-        else
-        {
-            Debug.LogError("No enemy factory has been assigned.");
-        }
+    }
+
+    private void SpawnEnemy()
+    {
+        enemyFactory.CreateEnemy(transform.position);
     }
 
     private void Awake()
     {
         enemyFactory = enemyFactoryGameObject.GetComponent<IEnemyFactory>();
-    }
-
-    private IEnumerator Start()
-    {
-        yield return new WaitForSeconds(3f);
-        SpawnEnemy (transform.position);
     }
 
 }
