@@ -106,6 +106,7 @@ public class Enemy : MonoBehaviour
                     case ShotType.Shoot:
                         ServiceLocator.AudioService.PlaySound("GunShot1");
                         break;
+                        
                 }
             }
         }
