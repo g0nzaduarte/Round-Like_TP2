@@ -16,9 +16,10 @@ public class Enemy : MonoBehaviour
 
     public float fireRate = 1f;
     private float nextFireTime = 0f;
+    private float timer = 0f;
 
     private float changeStrategyInterval = 5f;
-    private float nextStrategyChangeTime = 0f;
+    //private float nextStrategyChangeTime = 0f;
 
     public StateMachine<Enemy> StateMachine { get; private set; }
 
@@ -40,14 +41,15 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        StateMachine.Update();
+        timer -= Time.deltaTime;
 
-        if (Time.time >= nextStrategyChangeTime)
+        if (timer < 0)
         {
-            nextStrategyChangeTime = Time.time + changeStrategyInterval; 
+            //nextStrategyChangeTime = Time.time + changeStrategyInterval; 
+            timer = changeStrategyInterval;
             ChangeShotStrategy();
         }
-
+        StateMachine.Update();
     }
 
 
@@ -83,6 +85,8 @@ public class Enemy : MonoBehaviour
 
     public void Shoot()
     {
+
+
         if (Time.time >= nextFireTime)
         {
             nextFireTime = Time.time + 1f / fireRate;
@@ -91,14 +95,19 @@ public class Enemy : MonoBehaviour
             {
                 bullet.transform.position = firePoint.position;
                 bullet.GetComponent<Bullet>().SetDirection((Player.position - transform.position).normalized);
-            }
-        }
 
-        switch (currentShotType)
-        {
-            case ShotType.Shoot:
-                ServiceLocator.AudioService.PlaySound("GunShot1");
-                break;
+                if (shotStrategy != null)
+                {
+                    shotStrategy.Shoot(this);
+                }
+
+                switch (currentShotType)
+                {
+                    case ShotType.Shoot:
+                        ServiceLocator.AudioService.PlaySound("GunShot1");
+                        break;
+                }
+            }
         }
     }
 
