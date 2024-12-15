@@ -9,9 +9,12 @@ public class Enemy : MonoBehaviour
 
     public Transform Player;
     public Transform firePoint; 
-    public GameObject BulletPrefab; 
+    public GameObject BulletPrefab;
 
-    public float fireRate = 1f; 
+    public enum ShotType { Shoot }
+    public ShotType currentShotType;
+
+    public float fireRate = 1f;
     private float nextFireTime = 0f;
 
     private float changeStrategyInterval = 5f;
@@ -39,12 +42,12 @@ public class Enemy : MonoBehaviour
     {
         StateMachine.Update();
 
-        
         if (Time.time >= nextStrategyChangeTime)
         {
             nextStrategyChangeTime = Time.time + changeStrategyInterval; 
             ChangeShotStrategy();
         }
+
     }
 
 
@@ -89,6 +92,13 @@ public class Enemy : MonoBehaviour
                 bullet.transform.position = firePoint.position;
                 bullet.GetComponent<Bullet>().SetDirection((Player.position - transform.position).normalized);
             }
+        }
+
+        switch (currentShotType)
+        {
+            case ShotType.Shoot:
+                ServiceLocator.AudioService.PlaySound("GunShot1");
+                break;
         }
     }
 
